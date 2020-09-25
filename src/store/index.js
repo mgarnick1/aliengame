@@ -3,9 +3,13 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
-export const store = new Vuex.Store({
+export default new Vuex.Store({
   state: {
     uiState: "start",
+    character: "",
+    score: 0,
+    questionIndex: 0,
+    characterChoices: ["baker", "mechanic", "artist"],
     questions: [
       {
         question: `What's your dog's name?`,
@@ -44,5 +48,30 @@ export const store = new Vuex.Store({
         artist: "groundnut smoosh",
       },
     ],
+  },
+  mutations: {
+    updateCharacter(state, choice) {
+      state.character = choice;
+    },
+    updateUIState(state, uistate) {
+      state.uiState = uistate;
+    },
+    updateScore(state, amount) {
+      state.score = amount;
+    },
+    pickQuestion(state, character) {
+      character === state.character ? (state.score += 13) : (state.score -= 13);
+
+      if (state.questionIndex < state.questions.length - 1) {
+        state.questionIndex++;
+      } else {
+        Math.sign(state.score) > 0 ? (state.uiState = "won") : (state.uiState = "lost");
+      }
+    },
+    restartGame(state) {
+      state.uiState = "start";
+      state.score = 0;
+      state.questionIndex = 0;
+    },
   },
 });
