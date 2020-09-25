@@ -32,7 +32,7 @@
           style="font: normal 45px 'Helvetica; text-transform: uppercase;"
           class="text"
         >
-          Character Name
+          {{ character }}
         </text>
 
         <path fill="#f0959f" d="M0 842h657v192H0z" />
@@ -90,7 +90,6 @@ import GamestateFinish from "@/components/GamestateFinish.vue";
 import Artist from "@/components/Artist.vue";
 import Baker from "@/components/Baker.vue";
 import Mechanic from "@/components/Mechanic.vue";
-
 import gsap from "gsap";
 
 export default {
@@ -134,13 +133,13 @@ export default {
       }
       return array;
     },
-    watch: {
-      score(newValue, oldValue) {
-        console.log(oldValue);
-        gsap.to(".bottom-clip-path, .top-clip-path", {
-          y: -newValue * 6,
-        });
-      },
+  },
+  watch: {
+    score(newValue, oldValue) {
+      console.log(oldValue);
+      gsap.to(".bottom-clip-path, .top-clip-path", {
+        y: -newValue * 6,
+      });
     },
   },
 };

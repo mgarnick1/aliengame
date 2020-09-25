@@ -65,6 +65,23 @@
 </template>
 
 <script>
+import gsap from "gsap";
+export default {
+  computed: {
+    score() {
+      return this.$store.state.score;
+    },
+  },
+  watch: {
+    score(newValue) {
+      gsap.to("#needle", {
+        duration: 0.3,
+        rotation: newValue,
+        transformOrigin: "50% 87%",
+      });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped></style>
